@@ -1,9 +1,13 @@
 package com.lab.tesyant.moviebadass;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,10 +23,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DetailListActivity extends Activity {
+public class DetailListActivity extends Activity implements View.OnClickListener{
 
     private TextView tvTitle, tvRate, tvRelease, tvOverview;
     private ImageView imgCover, imgHeader;
+    private ImageButton btnFav;
 
 
     @Override
@@ -54,6 +59,9 @@ public class DetailListActivity extends Activity {
 
         imgCover = (ImageView) findViewById(R.id.img_cover);
         imgHeader = (ImageView) findViewById(R.id.imgView_banner);
+
+        btnFav = (ImageButton) findViewById(R.id.btn_fav);
+        btnFav.setOnClickListener(this);
 
 
         Intent intent = getIntent();
@@ -94,5 +102,35 @@ public class DetailListActivity extends Activity {
         Log.e("coba", "ya");
         Glide.with(this).load("http://image.tmdb.org/t/p/w185" + cover).into(imgCover);
         Glide.with(this).load("http://image.tmdb.org/t/p/w185" + header).into(imgHeader);
+    }
+
+    @Override
+    public void onClick(View view) {
+        boolean isFavourite = readState();
+
+        if (isFavourite) {
+            btnFav.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+            isFavourite = false;
+            saveState(isFavourite);
+        }
+
+        else {
+            btnFav.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+            isFavourite = true;
+            saveState(isFavourite);
+        }
+
+    }
+
+    private void saveState(boolean isFavourite) {
+        SharedPreferences sharedPreference = this.getSharedPreferences("Favourite", Context.MODE_PRIVATE);
+        SharedPreferences.Editor sharedPreferenceEdit = sharedPreference.edit();
+        sharedPreferenceEdit.putBoolean("State", isFavourite);
+        sharedPreferenceEdit.commit();
+    }
+
+    private boolean readState() {
+        SharedPreferences sharedPreference = this.getSharedPreferences("Favourite", Context.MODE_PRIVATE);
+        return sharedPreference.getBoolean("State", true);
     }
 }
