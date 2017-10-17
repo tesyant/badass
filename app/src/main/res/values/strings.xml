@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Mov</string>
+    <string name="string_search">SEARCH</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="setting_locale">Setting Locale</string>
+    <string name="notification">Notification</string>
+    <string name="title_dailyremind">Notification</string>
+    <string name="summary_dailyremind">Turn on/of notification</string>
+    <string name="title_upcomingremind">Upcoming Reminder Notification</string>
+    <string name="summary_upcomingremind">Turn on/off upcoming reminder</string>
+    <string name="settings">Settings</string>
+    <string name="change_your_phone_localization">Change your phone localization</string>
+    <string name="setting_language">Language</string>
+</resources>
