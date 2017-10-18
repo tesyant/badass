@@ -2,10 +2,13 @@ package com.lab.tesyant.moviebadass.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.lab.tesyant.moviebadass.model.Results;
+
+import java.util.ArrayList;
 
 /**
  * Created by tesyant on 10/17/17.
@@ -33,6 +36,35 @@ public class FavouriteHelper {
 
     public void close() {
         databaseHelper.close();
+    }
+
+    public Cursor queryAllData() {
+        return database.rawQuery("SELECT * FROM " + DATABASE_TABLE + " ORDER BY "
+                + DatabaseHelper.FIELD_MOVIE_ID + " DESC ", null);
+    }
+
+    public ArrayList<Results> getAllData() {
+        ArrayList<Results> arrayList = new ArrayList<Results>();
+        Cursor cursor = queryAllData();
+        cursor.moveToFirst();
+        Results results;
+        if (cursor.getCount() > 0) {
+            do {
+                results = new Results();
+                results.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_MOVIE_ID)));
+                results.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_TITLE)));
+                results.setPopularity(Double.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_RATE))));
+                results.setReleaseDate(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_RELEASE)));
+                results.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_OVERVIEW)));
+                results.setPosterPath(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_COVER)));
+                results.setBackdropPath(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_BACKDROP)));
+                arrayList.add(results);
+                cursor.moveToNext();
+            }
+            while (!cursor.isAfterLast());
+        }
+        cursor.close();
+        return arrayList;
     }
 
     public long insert(Results results) {
