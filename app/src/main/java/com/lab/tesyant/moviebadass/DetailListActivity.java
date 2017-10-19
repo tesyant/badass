@@ -29,6 +29,23 @@ public class DetailListActivity extends Activity implements View.OnClickListener
     private ImageView imgCover, imgHeader;
     private ImageButton btnFav;
 
+//    public static String EXTRA_FAV = "extra_fav";
+//    public static String EXTRA_POSITION = "extra_position";
+//
+//    private boolean isEdit = false;
+//
+//    public static int REQUEST_ADD = 100;
+//    public static int RESULT_ADD = 100;
+//    public static int REQUEST_UPDATE = 200;
+//    public static int RESULT_UPDATE = 201;
+//    public static int RESULT_DELETE = 301;
+//
+//    private final int ALERT_DIALOG_CLOSE = 10;
+//    private final int ALERT_DIALOG_DELETE = 20;
+//
+//    private Results results;
+//    private int position;
+//    private FavouriteHelper favouriteHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +129,30 @@ public class DetailListActivity extends Activity implements View.OnClickListener
             btnFav.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
             isFavourite = false;
             saveState(isFavourite);
+
+//
+//
+//            String title = detail.getTitle().toString().trim();
+//            String rate = String.valueOf(detail.getPopularity()).toString().trim();
+//            String release = detail.getReleaseDate();
+//            String overview = detail.getOverview();
+//            String cover = detail.getPosterPath();
+//            String backdrop = detail.getBackdropPath();
+
+//            boolean isEmpty = false;
+//
+//            if (DatabaseHelper.FIELD_MOVIE_ID == null) {
+//                isEmpty = true;
+//                Log.e("DB", "null");
+//            }
+//
+//            if (!isEmpty) {
+//
+//                DetailActivity detail = new DetailActivity();
+//                String id = String.valueOf(detail.getId()).toString().trim();
+//
+//            }
+
         }
 
         else {
@@ -119,6 +160,7 @@ public class DetailListActivity extends Activity implements View.OnClickListener
             isFavourite = true;
             saveState(isFavourite);
         }
+
 
     }
 
