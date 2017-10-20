@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.lab.tesyant.moviebadass.db.FavouriteHelper;
@@ -123,12 +124,14 @@ public class DetailListActivity extends Activity implements View.OnClickListener
             saveState(isFavourite);
 
             favouriteHelper.insertTransaction(MovieDetail);
+            Toast.makeText(DetailListActivity.this, MovieDetail.getTitle() + " has been added", Toast.LENGTH_SHORT).show();
         }
 
         else {
             btnFav.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
             isFavourite = true;
             saveState(isFavourite);
+            Toast.makeText(DetailListActivity.this, MovieDetail.getTitle() + " has been deleted", Toast.LENGTH_SHORT).show();
         }
 
 
