@@ -12,7 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.lab.tesyant.moviebadass.model.detail.DetailActivity;
+import com.lab.tesyant.moviebadass.db.FavouriteHelper;
+import com.lab.tesyant.moviebadass.model.detail.Detail;
 import com.lab.tesyant.moviebadass.service.Client;
 
 import okhttp3.OkHttpClient;
@@ -29,26 +30,16 @@ public class DetailListActivity extends Activity implements View.OnClickListener
     private ImageView imgCover, imgHeader;
     private ImageButton btnFav;
 
-//    public static String EXTRA_FAV = "extra_fav";
-//    public static String EXTRA_POSITION = "extra_position";
-//
-//    private boolean isEdit = false;
-//
-//    public static int REQUEST_ADD = 100;
-//    public static int RESULT_ADD = 100;
-//    public static int REQUEST_UPDATE = 200;
-//    public static int RESULT_UPDATE = 201;
-//    public static int RESULT_DELETE = 301;
-//
-//    private final int ALERT_DIALOG_CLOSE = 10;
-//    private final int ALERT_DIALOG_DELETE = 20;
-//
-//    private Results results;
-//    private int position;
-//    private FavouriteHelper favouriteHelper;
+    private FavouriteHelper favouriteHelper;
+
+    Detail MovieDetail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        favouriteHelper = new FavouriteHelper(getApplicationContext());
+        favouriteHelper.open();
 
         String MOVIE_ID = "";
 
@@ -90,20 +81,21 @@ public class DetailListActivity extends Activity implements View.OnClickListener
         }
 
         Client client = retrofit.create(Client.class);
-        Call<DetailActivity> call = client.getDetail(MOVIE_ID, MainActivity.API_KEY);
+        Call<Detail> call = client.getDetail(MOVIE_ID, MainActivity.API_KEY);
 
-        call.enqueue(new Callback<DetailActivity>() {
+        call.enqueue(new Callback<Detail>() {
             @Override
-            public void onResponse(Call<DetailActivity> call, Response<DetailActivity> response) {
-                DetailActivity MovieDetail = response.body();
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                MovieDetail = response.body();
                 SetText(MovieDetail.getOriginalTitle(), String.valueOf(MovieDetail.getPopularity()),
                         MovieDetail.getReleaseDate(), MovieDetail.getOverview());
                 SetImage(String.valueOf(MovieDetail.getPosterPath()), String.valueOf(MovieDetail.getBackdropPath()));
             }
 
             @Override
-            public void onFailure(Call<DetailActivity> call, Throwable t) {
+            public void onFailure(Call<Detail> call, Throwable t) {
 
+                Log.e("error", "y : " + t);
             }
         });
     }
@@ -130,29 +122,7 @@ public class DetailListActivity extends Activity implements View.OnClickListener
             isFavourite = false;
             saveState(isFavourite);
 
-//
-//
-//            String title = detail.getTitle().toString().trim();
-//            String rate = String.valueOf(detail.getPopularity()).toString().trim();
-//            String release = detail.getReleaseDate();
-//            String overview = detail.getOverview();
-//            String cover = detail.getPosterPath();
-//            String backdrop = detail.getBackdropPath();
-
-//            boolean isEmpty = false;
-//
-//            if (DatabaseHelper.FIELD_MOVIE_ID == null) {
-//                isEmpty = true;
-//                Log.e("DB", "null");
-//            }
-//
-//            if (!isEmpty) {
-//
-//                DetailActivity detail = new DetailActivity();
-//                String id = String.valueOf(detail.getId()).toString().trim();
-//
-//            }
-
+            favouriteHelper.insertTransaction(MovieDetail);
         }
 
         else {

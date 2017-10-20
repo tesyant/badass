@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
 import com.lab.tesyant.moviebadass.model.Results;
+import com.lab.tesyant.moviebadass.model.detail.Detail;
 
 import java.util.ArrayList;
 
@@ -80,7 +81,7 @@ public class FavouriteHelper {
         return database.insert(DATABASE_TABLE, null, initialValues);
     }
 
-    public void insertTransaction(ArrayList<Results> resultses) {
+    public void insertTransaction(Detail details) {
         String sql = "INSERT INTO " + DATABASE_TABLE + " ( "
                 + DatabaseHelper.FIELD_MOVIE_ID + ", "
                 + DatabaseHelper.FIELD_TITLE + ", "
@@ -88,19 +89,18 @@ public class FavouriteHelper {
                 + DatabaseHelper.FIELD_RELEASE + ", "
                 + DatabaseHelper.FIELD_OVERVIEW + ", "
                 + DatabaseHelper.FIELD_COVER + ", "
-                + DatabaseHelper.FIELD_BACKDROP + ") VALUES (?, ?);";
+                + DatabaseHelper.FIELD_BACKDROP + ") VALUES (?, ?, ?, ?, ?, ?, ?);";
         database.beginTransaction();
 
         SQLiteStatement statement = database.compileStatement(sql);
-        for (int i = 0; i < resultses.size(); i++) {
-            statement.bindString(1, String.valueOf(resultses.get(i).getId()));
-            statement.bindString(2, resultses.get(i).getTitle());
-            statement.bindString(3, String.valueOf(resultses.get(i).getPopularity()));
-            statement.bindString(4, resultses.get(i).getReleaseDate());
-            statement.bindString(5, resultses.get(i).getOverview());
-            statement.bindString(6, resultses.get(i).getPosterPath());
-            statement.bindString(7, String.valueOf(resultses.get(i).getBackdropPath()));
-        }
+            statement.bindString(1, String.valueOf(details.getId()));
+            statement.bindString(2, details.getTitle());
+            statement.bindString(3, String.valueOf(details.getPopularity()));
+            statement.bindString(4, details.getReleaseDate());
+            statement.bindString(5, details.getOverview());
+            statement.bindString(6, details.getPosterPath());
+            statement.bindString(7, String.valueOf(details.getBackdropPath()));
+
 
         database.setTransactionSuccessful();
         database.endTransaction();

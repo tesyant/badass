@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class DetailActivity {
+public class Detail {
 
     @SerializedName("adult")
     @Expose

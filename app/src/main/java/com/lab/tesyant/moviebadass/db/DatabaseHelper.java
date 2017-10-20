@@ -25,11 +25,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public static String CREATE_TABLE_FAV = "CREATE TABLE " + TABLE_NAME + " ( "
             + FIELD_MOVIE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + FIELD_TITLE + " TEXT "
-            + FIELD_RELEASE + " TEXT "
-            + FIELD_RATE + " INTEGER "
-            + FIELD_OVERVIEW + " TEXT "
-            + FIELD_COVER + " TEXT "
+            + FIELD_TITLE + " TEXT, "
+            + FIELD_RELEASE + " TEXT, "
+            + FIELD_RATE + " DECIMAL, "
+            + FIELD_OVERVIEW + " TEXT, "
+            + FIELD_COVER + " TEXT, "
             + FIELD_BACKDROP + " TEXT "
             + " );";
 
