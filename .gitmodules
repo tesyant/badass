@@ -1,0 +1,6 @@
+[submodule "badass"]
+	path = badass
+	url = https://github.com/tesyant/badass.git
+[submodule "FavouriteProvider"]
+	path = FavouriteProvider
+	url = https://github.com/tesyant/badass.git
