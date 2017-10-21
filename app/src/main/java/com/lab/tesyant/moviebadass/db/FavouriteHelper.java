@@ -12,6 +12,8 @@ import com.lab.tesyant.moviebadass.model.detail.Detail;
 
 import java.util.ArrayList;
 
+import static android.provider.BaseColumns._ID;
+
 /**
  * Created by tesyant on 10/17/17.
  */
@@ -108,5 +110,25 @@ public class FavouriteHelper {
 
     public void delete(int id) {
         database.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.FIELD_MOVIE_ID + " = ' " + id + " '", null);
+    }
+
+    public Cursor queryByIdProvider(String id) {
+            return database.query(DATABASE_TABLE, null, _ID + " = ?", new String[]{id}, null, null, null, null);
+    }
+
+    public Cursor queryProvider() {
+        return database.query(DATABASE_TABLE, null, null, null, null, null, _ID + " DESC ");
+    }
+
+    public long insertProvider(ContentValues values) {
+        return database.insert(DATABASE_TABLE, null, values);
+    }
+
+    public int updateProvider(String id, ContentValues values) {
+        return database.update(DATABASE_TABLE, values, _ID + " = ? ", new String[]{id});
+    }
+
+    public int deleteProvider(String id) {
+        return database.delete(DATABASE_TABLE, _ID + " = ? ", new String[]{id});
     }
 }

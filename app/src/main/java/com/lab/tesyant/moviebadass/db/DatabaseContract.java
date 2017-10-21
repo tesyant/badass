@@ -14,13 +14,13 @@ public class DatabaseContract {
 
     public static final class FavColumn implements BaseColumns {
 
-        public static String FIELD_MOVIE_ID = "movieId";
-        public static String FIELD_TITLE = "title";
-        public static String FIELD_RELEASE = "release";
-        public static String FIELD_RATE = "rate";
-        public static String FIELD_OVERVIEW = "overview";
-        public static String FIELD_COVER = "cover";
-        public static String FIELD_BACKDROP = "backdrop";
+        public static String MOVIE_ID = "movieId";
+        public static String TITLE = "title";
+        public static String RELEASE = "release";
+        public static String RATE = "rate";
+        public static String OVERVIEW = "overview";
+        public static String COVER = "cover";
+        public static String BACKDROP = "backdrop";
     }
 
     public static final String AUTHORITY = "com.lab.tesyant.moviebadass";
