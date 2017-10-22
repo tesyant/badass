@@ -7,10 +7,12 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-    <permission android:name="com.lab.tesyant.moviebadass.READ_DATABASE"
-        android:protectionLevel="normal"/>
-    <permission android:name="com.lab.tesyant.moviebadass.WRITE_DATABASE"
-        android:protectionLevel="normal"/>
+    <permission
+        android:name="com.lab.tesyant.moviebadass.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.lab.tesyant.moviebadass.WRITE_DATABASE"
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -49,15 +51,24 @@
             android:label="@string/title_activity_main2" />
         <activity android:name=".UpcomingActivity" />
         <activity android:name=".NowPlayActivity" />
-
-        <activity android:name=".SettingsActivity"
+        <activity
+            android:name=".SettingsActivity"
             android:label="Settings"
-            android:theme="@style/SettingsTheme"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/SettingsTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
+
+        <provider
+            android:name=".provider.FavProvider"
+            android:authorities="com.lab.tesyant.moviebadass"
+            android:exported="true"
+            android:readPermission="com.lab.tesyant.moviebadass.READ_DATABASE"
+            android:writePermission="com.lab.tesyant.moviebadass.WRITE_DATABASE" />
+
+        <activity android:name=".FavouriteActivity"></activity>
     </application>
 
 </manifest>

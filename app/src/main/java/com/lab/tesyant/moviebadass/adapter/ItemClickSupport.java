@@ -1,4 +1,4 @@
-package com.lab.tesyant.moviebadass;
+package com.lab.tesyant.moviebadass.adapter;
 
 /**
  * Created by tesyant on 9/30/17.

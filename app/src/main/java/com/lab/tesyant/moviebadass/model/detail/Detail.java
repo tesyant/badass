@@ -1,10 +1,16 @@
 
 package com.lab.tesyant.moviebadass.model.detail;
 
+import android.database.Cursor;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.lab.tesyant.moviebadass.db.DatabaseContract;
 
 import java.util.List;
+
+import static com.lab.tesyant.moviebadass.db.DatabaseContract.getColumnInt;
+import static com.lab.tesyant.moviebadass.db.DatabaseContract.getColumnString;
 
 public class Detail {
 
@@ -282,6 +288,20 @@ public class Detail {
 
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
+    }
+
+    public Detail() {
+
+    }
+
+    public Detail(Cursor cursor) {
+        this.id = getColumnInt(cursor, DatabaseContract.FavColumn.MOVIE_ID);
+        this.title = getColumnString(cursor, DatabaseContract.FavColumn.TITLE);
+        this.releaseDate = getColumnString(cursor, DatabaseContract.FavColumn.RELEASE);
+        this.popularity = getColumnInt(cursor, DatabaseContract.FavColumn.RATE);
+        this.overview = getColumnString(cursor, DatabaseContract.FavColumn.OVERVIEW);
+        this.posterPath = getColumnString(cursor, DatabaseContract.FavColumn.COVER);
+        this.backdropPath = getColumnString(cursor, DatabaseContract.FavColumn.BACKDROP);
     }
 
 }
