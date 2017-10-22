@@ -73,6 +73,7 @@ public class UpcomingActivity extends Activity {
                         startActivity(intent);
                     }
                 });
+
                 LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
                 llm.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(llm);

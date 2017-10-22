@@ -62,7 +62,6 @@ public class DetailListActivity extends Activity implements View.OnClickListener
 
         Retrofit retrofit = builder.build();
 
-
         tvTitle = (TextView)findViewById(R.id.detail_title);
         tvRelease = (TextView)findViewById(R.id.detail_release_date);
         tvRate = (TextView)findViewById(R.id.detail_rate);
