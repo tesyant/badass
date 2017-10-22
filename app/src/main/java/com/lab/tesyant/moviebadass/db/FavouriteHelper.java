@@ -13,6 +13,13 @@ import com.lab.tesyant.moviebadass.model.detail.Detail;
 import java.util.ArrayList;
 
 import static android.provider.BaseColumns._ID;
+import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.BACKDROP;
+import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.COVER;
+import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.MOVIE_ID;
+import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.OVERVIEW;
+import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.TITLE;
+import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.RATE;
+import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.RELEASE;
 
 /**
  * Created by tesyant on 10/17/17.
@@ -45,6 +52,31 @@ public class FavouriteHelper {
     public Cursor queryAllData() {
         return database.rawQuery("SELECT * FROM " + DATABASE_TABLE + " ORDER BY "
                 + DatabaseHelper.FIELD_MOVIE_ID + " DESC ", null);
+    }
+
+    public ArrayList<Results> query() {
+        ArrayList<Results> arrayList = new ArrayList<Results>();
+        Cursor cursor = database.query(DATABASE_TABLE, null, null, null, null, null, _ID + " DESC ", null);
+        cursor.moveToFirst();
+        Results results;
+        if (cursor.getCount()>0) {
+            do {
+                results = new Results();
+                results.setId(cursor.getInt(cursor.getColumnIndexOrThrow(MOVIE_ID)));
+                results.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
+                results.setPopularity(cursor.getDouble(cursor.getColumnIndexOrThrow(RATE)));
+                results.setReleaseDate(cursor.getString(cursor.getColumnIndexOrThrow(RELEASE)));
+                results.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(OVERVIEW)));
+                results.setPosterPath(cursor.getString(cursor.getColumnIndexOrThrow(COVER)));
+                results.setBackdropPath(cursor.getString(cursor.getColumnIndexOrThrow(BACKDROP)));
+
+                arrayList.add(results);
+                cursor.moveToNext();
+            }
+            while (!cursor.isAfterLast());
+        }
+        cursor.close();
+        return arrayList;
     }
 
     public ArrayList<Results> getAllData() {

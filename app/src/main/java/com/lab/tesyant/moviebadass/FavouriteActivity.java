@@ -1,93 +1,95 @@
 package com.lab.tesyant.moviebadass;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 
-import com.lab.tesyant.moviebadass.adapter.CustomItemClickListener;
 import com.lab.tesyant.moviebadass.adapter.FavAdapter;
-import com.lab.tesyant.moviebadass.adapter.NowPlayAdapter;
+import com.lab.tesyant.moviebadass.db.FavouriteHelper;
 import com.lab.tesyant.moviebadass.model.Results;
-import com.lab.tesyant.moviebadass.model.SearchMovie;
-import com.lab.tesyant.moviebadass.model.nowPlaying.NowPlaying;
-import com.lab.tesyant.moviebadass.model.nowPlaying.Result;
-import com.lab.tesyant.moviebadass.service.Client;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+public class FavouriteActivity extends AppCompatActivity implements View.OnClickListener {
 
-import static com.lab.tesyant.moviebadass.MainActivity.API_KEY;
-import static com.lab.tesyant.moviebadass.MainActivity.LANG;
+    RecyclerView rvFav;
+    ProgressBar progressBar;
 
-public class FavouriteActivity extends Activity {
-
-    private RecyclerView recyclerView;
+    private LinkedList<Results> list;
+    private FavAdapter favAdapter;
+    private FavouriteHelper favouriteHelper;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
 
-        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
+        getSupportActionBar().setTitle("Favourite");
 
-        OkHttpClient.Builder okhttpClientBuilder = new OkHttpClient.Builder();
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        okhttpClientBuilder.addInterceptor(logging);
+        rvFav = (RecyclerView) findViewById(R.id.recycler_view);
+        rvFav.setLayoutManager(new LinearLayoutManager(this));
+        rvFav.setHasFixedSize(true);
 
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okhttpClientBuilder.build());
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
 
-        Retrofit retrofit = builder.build();
+        favouriteHelper = new FavouriteHelper(this);
+        favouriteHelper.open();
 
-        Client client = retrofit.create(Client.class);
-        Call<SearchMovie> call = client.getList(API_KEY, LANG);
+        list = new LinkedList<>();
 
-        call.enqueue(new Callback<SearchMovie>() {
-            @Override
-            public void onResponse(Call<SearchMovie> call, Response<SearchMovie> response) {
-                SearchMovie movie = response.body();
-                int size = movie.getResults().size();
-                final String[] list_movie_id = new String[size];
-                for (int i = 0; i<size; i++) {
-                    list_movie_id[i] = String.valueOf(movie.getResults().get(i).getId());
-                }
+        favAdapter = new FavAdapter(this);
+        favAdapter.setListFav(list);
+        rvFav.setAdapter(favAdapter);
 
+        new LoadFavAsync().execute();
+    }
 
-                List<Results> result = movie.getResults();
-                FavAdapter listAdapter = new FavAdapter(result, FavouriteActivity.this, new CustomItemClickListener() {
-                    @Override
-                    public void onItemClick(View v, int position) {
-                        String id = list_movie_id[position];
-                        Intent intent = new Intent(FavouriteActivity.this, DetailListActivity.class);
-                        intent.putExtra("movieId", id);
-                        startActivity(intent);
-                    }
-                });
-                LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-                llm.setOrientation(LinearLayoutManager.VERTICAL);
-                recyclerView.setLayoutManager(llm);
-                recyclerView.setAdapter(listAdapter);
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
+    @Override
+    public void onClick(View view) {
+    }
 
+    public class LoadFavAsync extends AsyncTask<Void, Void, ArrayList<Results>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+
+            if (list.size() > 0) {
+                list.clear();
             }
+        }
 
-            @Override
-            public void onFailure(Call<NowPlaying> call, Throwable t) {
+        @Override
+        protected ArrayList<Results> doInBackground(Void... voids) {
+            return favouriteHelper.query();
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Results> resultses) {
+            super.onPostExecute(resultses);
+            progressBar.setVisibility(View.GONE);
+            list.addAll(resultses);
+            favAdapter.setListFav(list);
+            favAdapter.notifyDataSetChanged();
+
+            if (list.size() == 0) {
+                showSnackbarMessage("Tidak ada data saat ini");
             }
-        });
+        }
+    }
+
+    private void showSnackbarMessage(String message) {
+        Snackbar.make(rvFav, message, Snackbar.LENGTH_SHORT).show();
     }
 }
