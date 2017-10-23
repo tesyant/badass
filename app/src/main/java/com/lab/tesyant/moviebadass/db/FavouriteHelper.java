@@ -17,9 +17,9 @@ import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.BACKDROP
 import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.COVER;
 import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.MOVIE_ID;
 import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.OVERVIEW;
-import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.TITLE;
 import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.RATE;
 import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.RELEASE;
+import static com.lab.tesyant.moviebadass.db.DatabaseContract.FavColumn.TITLE;
 
 /**
  * Created by tesyant on 10/17/17.

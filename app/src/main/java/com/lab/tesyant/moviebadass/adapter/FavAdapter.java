@@ -1,6 +1,7 @@
 package com.lab.tesyant.moviebadass.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.lab.tesyant.moviebadass.R;
 import com.lab.tesyant.moviebadass.model.Results;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -21,10 +23,22 @@ import java.util.LinkedList;
 public class FavAdapter extends RecyclerView.Adapter<FavAdapter.FavViewHolder> {
 
     private LinkedList<Results> listFav;
+    private ArrayList<String> mData = new ArrayList<>();
     private Activity activity;
+    private Context context;
+    private LayoutInflater mInflater;
+    CustomItemClickListener listener;
+
 
     public FavAdapter (Activity activity) {
         this.activity = activity;
+    }
+
+    public FavAdapter (Context context, ArrayList<String> data, CustomItemClickListener listener) {
+        this.context = context;
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.mData = data;
+        this.listener = listener;
     }
 
     public LinkedList<Results> getListFav() {
