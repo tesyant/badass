@@ -178,7 +178,7 @@ public class FavouriteHelper {
     }
 
     public Cursor queryProvider() {
-        return database.query(DATABASE_TABLE, null, null, null, null, null, _ID + " DESC ");
+        return database.query(DATABASE_TABLE, null, null, null, null, null, MOVIE_ID + " DESC ");
     }
 
     public long insertProvider(ContentValues values) {
@@ -186,7 +186,7 @@ public class FavouriteHelper {
     }
 
     public int updateProvider(String id, ContentValues values) {
-        return database.update(DATABASE_TABLE, values, _ID + " = ? ", new String[]{id});
+        return database.update(DATABASE_TABLE, values, MOVIE_ID + " = ? ", new String[]{id});
     }
 
     public int deleteProvider(String id) {
