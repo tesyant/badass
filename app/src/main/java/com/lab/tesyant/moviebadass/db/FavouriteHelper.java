@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+import android.util.Log;
 
 import com.lab.tesyant.moviebadass.model.Results;
 import com.lab.tesyant.moviebadass.model.detail.Detail;
@@ -56,7 +57,7 @@ public class FavouriteHelper {
 
     public ArrayList<Results> query() {
         ArrayList<Results> arrayList = new ArrayList<Results>();
-        Cursor cursor = database.query(DATABASE_TABLE, null, null, null, null, null, _ID + " DESC ", null);
+        Cursor cursor = database.query(DATABASE_TABLE, null, null, null, null, null, MOVIE_ID + " DESC ", null);
         cursor.moveToFirst();
         Results results;
         if (cursor.getCount()>0) {
@@ -115,6 +116,17 @@ public class FavouriteHelper {
         return database.insert(DATABASE_TABLE, null, initialValues);
     }
 
+    public void checkdata () {
+        Cursor checkdata = database.rawQuery("SELECT * FROM " + DATABASE_TABLE , null);
+        if (checkdata.getCount() > 0) {
+            Log.e("Check" , "Data are exist");
+        }
+        else {
+            Log.e("Check", "Dta doesn't exist");
+        }
+    }
+
+
     public void insertTransaction(Detail details) {
         String sql = "INSERT INTO " + DATABASE_TABLE + " ( "
                 + DatabaseHelper.FIELD_MOVIE_ID + ", "
@@ -135,6 +147,9 @@ public class FavouriteHelper {
             statement.bindString(6, details.getPosterPath());
             statement.bindString(7, String.valueOf(details.getBackdropPath()));
 
+        statement.execute();
+        statement.clearBindings();
+
 
         database.setTransactionSuccessful();
         database.endTransaction();
@@ -144,8 +159,22 @@ public class FavouriteHelper {
         database.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.FIELD_MOVIE_ID + " = ' " + id + " '", null);
     }
 
+    public Boolean checkid (String id) {
+        Cursor check = database.rawQuery("SELECT " + DatabaseHelper.FIELD_MOVIE_ID + " FROM " + DATABASE_TABLE + " WHERE " + DatabaseHelper.FIELD_MOVIE_ID + " = " + id, null);
+        if (check.getCount() > 0){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public Cursor queryById (String id) {
+        return database.rawQuery("SELECT " + DatabaseHelper.FIELD_MOVIE_ID + " FROM " + DATABASE_TABLE + " WHERE " + id + " = " + id, null);
+    }
+
     public Cursor queryByIdProvider(String id) {
-            return database.query(DATABASE_TABLE, null, _ID + " = ?", new String[]{id}, null, null, null, null);
+            return database.query(DATABASE_TABLE, null, MOVIE_ID + " = ?", new String[]{id}, null, null, null, null);
     }
 
     public Cursor queryProvider() {

@@ -1,10 +1,7 @@
 package com.lab.tesyant.moviebadass;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,7 +33,7 @@ public class DetailListActivity extends Activity implements View.OnClickListener
 
     Detail MovieDetail;
 
-    private Cursor List;
+    boolean IsFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +45,6 @@ public class DetailListActivity extends Activity implements View.OnClickListener
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
 
         OkHttpClient.Builder okhttpClientBuilder = new OkHttpClient.Builder();
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -73,13 +69,21 @@ public class DetailListActivity extends Activity implements View.OnClickListener
         btnFav = (ImageButton) findViewById(R.id.btn_fav);
         btnFav.setOnClickListener(this);
 
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
         if (bundle != null) {
             MOVIE_ID = (String) bundle.get("movieId").toString();
             Log.e("MEV", "Mov ID :" + MOVIE_ID);
+        }
+
+        IsFavorite = favouriteHelper.checkid(MOVIE_ID);
+
+        if (IsFavorite) {
+            btnFav.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+        }
+        else {
+            btnFav.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
         }
 
         Client client = retrofit.create(Client.class);
@@ -96,7 +100,6 @@ public class DetailListActivity extends Activity implements View.OnClickListener
 
             @Override
             public void onFailure(Call<Detail> call, Throwable t) {
-
                 Log.e("error", "y : " + t);
             }
         });
@@ -110,43 +113,24 @@ public class DetailListActivity extends Activity implements View.OnClickListener
     }
 
     public void SetImage(String cover, String header) {
-        Log.e("coba", "ya");
         Glide.with(this).load("http://image.tmdb.org/t/p/w185" + cover).into(imgCover);
         Glide.with(this).load("http://image.tmdb.org/t/p/w185" + header).into(imgHeader);
     }
 
     @Override
     public void onClick(View view) {
-        boolean isFavourite = readState();
-
-        if (isFavourite) {
-            btnFav.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
-            isFavourite = false;
-            saveState(isFavourite);
-
-            favouriteHelper.insertTransaction(MovieDetail);
-            Toast.makeText(DetailListActivity.this, MovieDetail.getTitle() + " has been added", Toast.LENGTH_SHORT).show();
+        if (IsFavorite) {
+            favouriteHelper.delete(MovieDetail.getId());
+            Toast.makeText(DetailListActivity.this, MovieDetail.getTitle() + " has been Deleted", Toast.LENGTH_SHORT).show();
+            btnFav.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+            IsFavorite = false;
         }
 
         else {
-            btnFav.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
-            isFavourite = true;
-            saveState(isFavourite);
-            Toast.makeText(DetailListActivity.this, MovieDetail.getTitle() + " has been deleted", Toast.LENGTH_SHORT).show();
+            favouriteHelper.insertTransaction(MovieDetail);
+            Toast.makeText(DetailListActivity.this, MovieDetail.getTitle() + " has been Added", Toast.LENGTH_SHORT).show();
+            btnFav.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+            IsFavorite = true;
         }
-
-
-    }
-
-    private void saveState(boolean isFavourite) {
-        SharedPreferences sharedPreference = this.getSharedPreferences("Favourite", Context.MODE_PRIVATE);
-        SharedPreferences.Editor sharedPreferenceEdit = sharedPreference.edit();
-        sharedPreferenceEdit.putBoolean("State", isFavourite);
-        sharedPreferenceEdit.commit();
-    }
-
-    private boolean readState() {
-        SharedPreferences sharedPreference = this.getSharedPreferences("Favourite", Context.MODE_PRIVATE);
-        return sharedPreference.getBoolean("State", true);
     }
 }

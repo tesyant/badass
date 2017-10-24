@@ -98,6 +98,10 @@ public class Main2Activity extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(), NowPlayActivity.class));
         }
 
+        else if (id == R.id.nav_fav) {
+            startActivity(new Intent(getApplicationContext(), FavouriteActivity.class));
+        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

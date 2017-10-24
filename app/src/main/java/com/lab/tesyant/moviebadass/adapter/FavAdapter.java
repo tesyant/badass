@@ -14,7 +14,6 @@ import com.lab.tesyant.moviebadass.R;
 import com.lab.tesyant.moviebadass.model.Results;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * Created by tesyant on 9/29/17.
@@ -22,50 +21,44 @@ import java.util.LinkedList;
 
 public class FavAdapter extends RecyclerView.Adapter<FavAdapter.FavViewHolder> {
 
-    private LinkedList<Results> listFav;
-    private ArrayList<String> mData = new ArrayList<>();
+    private ArrayList<Results> mData = new ArrayList<>();
     private Activity activity;
     private Context context;
     private LayoutInflater mInflater;
     CustomItemClickListener listener;
 
-
-    public FavAdapter (Activity activity) {
-        this.activity = activity;
-    }
-
-    public FavAdapter (Context context, ArrayList<String> data, CustomItemClickListener listener) {
+    public FavAdapter (Context context, ArrayList<Results> data, CustomItemClickListener listener, Activity activity) {
         this.context = context;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mData = data;
         this.listener = listener;
-    }
-
-    public LinkedList<Results> getListFav() {
-        return listFav;
-    }
-
-    public void setListFav(LinkedList<Results> listFav) {
-        this.listFav = listFav;
+        this.activity = activity;
     }
 
     @Override
     public FavViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_movie, parent, false);
-        return new FavViewHolder(view);
+        final FavViewHolder myViewHolder = new FavViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onItemClick(view, myViewHolder.getAdapterPosition() );
+            }
+        });
+        return myViewHolder;
     }
 
     @Override
     public void onBindViewHolder(FavViewHolder holder, int position) {
-        holder.tvTitle.setText(getListFav().get(position).getTitle());
-        holder.tvRelease.setText(getListFav().get(position).getReleaseDate());
-        Glide.with(activity).load("http://image.tmdb.org/t/p/w185" + listFav.get(position).getPosterPath())
+        holder.tvTitle.setText(mData.get(position).getTitle());
+        holder.tvRelease.setText(mData.get(position).getReleaseDate());
+        Glide.with(activity).load("http://image.tmdb.org/t/p/w185" + mData.get(position).getPosterPath())
                 .fitCenter().into(holder.imgCover);
     }
 
     @Override
     public int getItemCount() {
-        return getListFav().size();
+        return mData.size();
     }
 
     public class FavViewHolder extends RecyclerView.ViewHolder {
