@@ -13,7 +13,6 @@ public class DatabaseContract {
     public static String TABLE_NAME = "favourite";
 
     public static final class FavColumn implements BaseColumns {
-
         public static String MOVIE_ID = "movieId";
         public static String TITLE = "title";
         public static String RELEASE = "release";

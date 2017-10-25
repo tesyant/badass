@@ -25,14 +25,22 @@ import static com.lab.tesyant.favouriteprovider.db.DatabaseContract.FavColumn.TI
 public class FavAdapter extends CursorAdapter {
 
     Activity activity;
+    CustomItemClickListener listener;
 
-    public FavAdapter(Context context, Cursor c, boolean autoRequery) {
+    public FavAdapter(Context context, Cursor c, boolean autoRequery, CustomItemClickListener listener) {
         super(context, c, autoRequery);
+        this.listener = listener;
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
         View view = LayoutInflater.from(context).inflate(R.layout.activity_list_movie, viewGroup, false);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onItemClick(view, getCursor().getPosition());
+            }
+        });
         return view;
     }
 

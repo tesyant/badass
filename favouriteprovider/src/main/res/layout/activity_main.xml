@@ -8,10 +8,10 @@
     android:orientation="vertical"
     tools:context="com.lab.tesyant.favouriteprovider.MainActivity">
 
-    <ListView
-        android:id="@+id/lvMovie"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin"/>
+        android:padding="@dimen/activity_margin"/>
 
 </LinearLayout>
