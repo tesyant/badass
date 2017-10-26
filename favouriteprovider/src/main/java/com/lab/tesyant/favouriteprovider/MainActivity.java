@@ -8,20 +8,16 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
-import com.lab.tesyant.favouriteprovider.adapter.CustomItemClickListener;
-import com.lab.tesyant.favouriteprovider.adapter.FavAdapter;
 import com.lab.tesyant.favouriteprovider.db.DatabaseContract;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener{
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
 
     private FavAdapter favAdapter;
-    RecyclerView recyclerView;
+    RecyclerView rvMovie;
 
     private final int LOAD_FAV_ID = 110;
     public static final String AUTHORITY = "com.lab.tesyant.moviebadass";
@@ -35,24 +31,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         getSupportActionBar().setTitle("Favourite Movie");
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-
-        final String[] list_movie_id = new String[];
-
-        favAdapter = new FavAdapter(this, null, true, new CustomItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                String id = list_movie_id[position];
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("");
-            }
-        });
-
-        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
-        recyclerView.setAdapter(favAdapter);
+        rvMovie = (RecyclerView) findViewById(R.id.recycler_view);
+        favAdapter = new FavAdapter(this, null, true);
+        rvMovie.setAdapter(favAdapter);
+        rvMovie.setOnClickListener(on);
 
         getSupportLoaderManager().initLoader(LOAD_FAV_ID, null, this);
     }

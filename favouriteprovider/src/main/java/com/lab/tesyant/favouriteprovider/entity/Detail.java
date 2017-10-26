@@ -1,261 +1,27 @@
-
 package com.lab.tesyant.favouriteprovider.entity;
 
 import android.database.Cursor;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import com.lab.tesyant.favouriteprovider.db.DatabaseContract;
 
-import java.util.List;
-
-import static com.lab.tesyant.favouriteprovider.db.DatabaseContract.getColumnInt;
 import static com.lab.tesyant.favouriteprovider.db.DatabaseContract.getColumnString;
 
-public class Detail {
+/**
+ * Created by tesyant on 10/26/17.
+ */
 
-    @SerializedName("adult")
-    @Expose
-    private boolean adult;
-    @SerializedName("backdrop_path")
-    @Expose
-    private String backdropPath;
-    @SerializedName("belongs_to_collection")
-    @Expose
-    private Object belongsToCollection;
-    @SerializedName("budget")
-    @Expose
-    private int budget;
-    @SerializedName("genres")
-    @Expose
-    private List<Genre> genres = null;
-    @SerializedName("homepage")
-    @Expose
-    private String homepage;
-    @SerializedName("id")
-    @Expose
-    private int id;
-    @SerializedName("imdb_id")
-    @Expose
-    private String imdbId;
-    @SerializedName("original_language")
-    @Expose
-    private String originalLanguage;
-    @SerializedName("original_title")
-    @Expose
-    private String originalTitle;
-    @SerializedName("overview")
-    @Expose
-    private String overview;
-    @SerializedName("popularity")
-    @Expose
-    private double popularity;
-    @SerializedName("poster_path")
-    @Expose
-    private String posterPath;
-    @SerializedName("production_companies")
-    @Expose
-    private List<ProductionCompany> productionCompanies = null;
-    @SerializedName("production_countries")
-    @Expose
-    private List<ProductionCountry> productionCountries = null;
-    @SerializedName("release_date")
-    @Expose
-    private String releaseDate;
-    @SerializedName("revenue")
-    @Expose
-    private int revenue;
-    @SerializedName("runtime")
-    @Expose
-    private int runtime;
-    @SerializedName("spoken_languages")
-    @Expose
-    private List<SpokenLanguage> spokenLanguages = null;
-    @SerializedName("status")
-    @Expose
-    private String status;
-    @SerializedName("tagline")
-    @Expose
-    private String tagline;
-    @SerializedName("title")
-    @Expose
-    private String title;
-    @SerializedName("video")
-    @Expose
-    private boolean video;
-    @SerializedName("vote_average")
-    @Expose
-    private double voteAverage;
-    @SerializedName("vote_count")
-    @Expose
-    private int voteCount;
+public class Detail implements Parcelable {
 
-    public boolean isAdult() {
-        return adult;
-    }
+    private String id, title, release, rate, overview, cover, backdrop;
 
-    public void setAdult(boolean adult) {
-        this.adult = adult;
-    }
-
-    public String getBackdropPath() {
-        return backdropPath;
-    }
-
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
-    }
-
-    public Object getBelongsToCollection() {
-        return belongsToCollection;
-    }
-
-    public void setBelongsToCollection(Object belongsToCollection) {
-        this.belongsToCollection = belongsToCollection;
-    }
-
-    public int getBudget() {
-        return budget;
-    }
-
-    public void setBudget(int budget) {
-        this.budget = budget;
-    }
-
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }
-
-    public String getHomepage() {
-        return homepage;
-    }
-
-    public void setHomepage(String homepage) {
-        this.homepage = homepage;
-    }
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public String getImdbId() {
-        return imdbId;
-    }
-
-    public void setImdbId(String imdbId) {
-        this.imdbId = imdbId;
-    }
-
-    public String getOriginalLanguage() {
-        return originalLanguage;
-    }
-
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
-    }
-
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    public double getPopularity() {
-        return popularity;
-    }
-
-    public void setPopularity(double popularity) {
-        this.popularity = popularity;
-    }
-
-    public String getPosterPath() {
-        return posterPath;
-    }
-
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
-    }
-
-    public List<ProductionCompany> getProductionCompanies() {
-        return productionCompanies;
-    }
-
-    public void setProductionCompanies(List<ProductionCompany> productionCompanies) {
-        this.productionCompanies = productionCompanies;
-    }
-
-    public List<ProductionCountry> getProductionCountries() {
-        return productionCountries;
-    }
-
-    public void setProductionCountries(List<ProductionCountry> productionCountries) {
-        this.productionCountries = productionCountries;
-    }
-
-    public String getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public int getRevenue() {
-        return revenue;
-    }
-
-    public void setRevenue(int revenue) {
-        this.revenue = revenue;
-    }
-
-    public int getRuntime() {
-        return runtime;
-    }
-
-    public void setRuntime(int runtime) {
-        this.runtime = runtime;
-    }
-
-    public List<SpokenLanguage> getSpokenLanguages() {
-        return spokenLanguages;
-    }
-
-    public void setSpokenLanguages(List<SpokenLanguage> spokenLanguages) {
-        this.spokenLanguages = spokenLanguages;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getTagline() {
-        return tagline;
-    }
-
-    public void setTagline(String tagline) {
-        this.tagline = tagline;
     }
 
     public String getTitle() {
@@ -266,42 +32,95 @@ public class Detail {
         this.title = title;
     }
 
-    public boolean isVideo() {
-        return video;
+    public String getRelease() {
+        return release;
     }
 
-    public void setVideo(boolean video) {
-        this.video = video;
+    public void setRelease(String release) {
+        this.release = release;
     }
 
-    public double getVoteAverage() {
-        return voteAverage;
+    public String getRate() {
+        return rate;
     }
 
-    public void setVoteAverage(double voteAverage) {
-        this.voteAverage = voteAverage;
+    public void setRate(String rate) {
+        this.rate = rate;
     }
 
-    public int getVoteCount() {
-        return voteCount;
+    public String getOverview() {
+        return overview;
     }
 
-    public void setVoteCount(int voteCount) {
-        this.voteCount = voteCount;
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public String getBackdrop() {
+        return backdrop;
+    }
+
+    public void setBackdrop(String backdrop) {
+        this.backdrop = backdrop;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.release);
+        dest.writeString(this.rate);
+        dest.writeString(this.overview);
+        dest.writeString(this.cover);
+        dest.writeString(this.backdrop);
     }
 
     public Detail() {
-
     }
 
     public Detail(Cursor cursor) {
-        this.id = getColumnInt(cursor, DatabaseContract.FavColumn.MOVIE_ID);
+        this.id = getColumnString(cursor, DatabaseContract.FavColumn.MOVIE_ID);
         this.title = getColumnString(cursor, DatabaseContract.FavColumn.TITLE);
-        this.releaseDate = getColumnString(cursor, DatabaseContract.FavColumn.RELEASE);
-        this.popularity = getColumnInt(cursor, DatabaseContract.FavColumn.RATE);
+        this.release = getColumnString(cursor, DatabaseContract.FavColumn.RELEASE);
+        this.rate = getColumnString(cursor, DatabaseContract.FavColumn.RATE);
         this.overview = getColumnString(cursor, DatabaseContract.FavColumn.OVERVIEW);
-        this.posterPath = getColumnString(cursor, DatabaseContract.FavColumn.COVER);
-        this.backdropPath = getColumnString(cursor, DatabaseContract.FavColumn.BACKDROP);
+        this.cover = getColumnString(cursor, DatabaseContract.FavColumn.COVER);
+        this.backdrop = getColumnString(cursor, DatabaseContract.FavColumn.BACKDROP);
     }
 
+    protected Detail (Parcel in) {
+        this.id = in.readString();
+        this.title = in.readString();
+        this.release = in.readString();
+        this.rate = in.readString();
+        this.overview = in.readString();
+        this.cover = in.readString();
+        this.backdrop = in.readString();
+    }
+
+    private static final Parcelable.Creator<Detail> CREATOR = new Parcelable.Creator<Detail>() {
+        @Override
+        public Detail createFromParcel(Parcel source) {
+            return new Detail(source);
+        }
+
+        @Override
+        public Detail[] newArray(int size) {
+            return new Detail[size];
+        }
+    };
 }
