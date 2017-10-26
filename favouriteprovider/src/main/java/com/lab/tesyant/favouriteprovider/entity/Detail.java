@@ -133,13 +133,13 @@ public class Detail implements Parcelable {
 
     public static Detail fromCursor(Cursor cursor) {
         Detail detail = new Detail();
-        detail.setId(String.valueOf(cursor.getColumnIndex(MOVIE_ID)));
-        detail.setTitle(String.valueOf(cursor.getColumnIndex(TITLE)));
-        detail.setRate(String.valueOf(cursor.getColumnIndex(RATE)));
-        detail.setRelease(String.valueOf(cursor.getColumnIndex(RELEASE)));
-        detail.setOverview(String.valueOf(cursor.getColumnIndex(OVERVIEW)));
-        detail.setCover(String.valueOf(cursor.getColumnIndex(COVER)));
-        detail.setBackdrop(String.valueOf(cursor.getColumnIndex(BACKDROP)));
+        detail.setId(cursor.getString(cursor.getColumnIndexOrThrow(MOVIE_ID)));
+        detail.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
+        detail.setRate(cursor.getString(cursor.getColumnIndexOrThrow(RATE)));
+        detail.setRelease(cursor.getString(cursor.getColumnIndexOrThrow(RELEASE)));
+        detail.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(OVERVIEW)));
+        detail.setCover(cursor.getString(cursor.getColumnIndexOrThrow(COVER)));
+        detail.setBackdrop(cursor.getString(cursor.getColumnIndexOrThrow(BACKDROP)));
         return detail;
     }
 

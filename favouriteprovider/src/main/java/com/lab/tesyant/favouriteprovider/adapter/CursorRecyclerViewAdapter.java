@@ -10,7 +10,7 @@ import android.view.ViewGroup;
  * Created by tesyant on 10/26/17.
  */
 
-public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class CursorRecyclerViewAdapter <ViewHolder extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<ViewHolder> {
 
     private Context mContext;
     private Cursor mCursor;
@@ -23,7 +23,7 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
         mContext = context;
         mCursor = cursor;
         mDataValid = cursor != null;
-        mRowIdColumn = mDataValid ? mCursor.getColumnIndex("MOVIE_ID") : -1;
+        mRowIdColumn = mDataValid ? mCursor.getColumnIndex("movieId") : -1;
         mDataSetObserver = new NotifyingDataSetObserver();
         if (mCursor != null) {
             mCursor.registerDataSetObserver(mDataSetObserver);
@@ -55,10 +55,10 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
         super.setHasStableIds(true);
     }
 
-    public abstract void onBindViewHolder(VH viewHolder, Cursor cursor);
+    public abstract void onBindViewHolder(ViewHolder viewHolder, Cursor cursor);
 
     @Override
-    public void onBindViewHolder(VH viewHolder, int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
         if (!mDataValid) {
             throw new IllegalStateException("this should only be called when the cursor is valid");
         }
@@ -69,7 +69,7 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
     }
 
     @Override
-    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return null;
     }
 
@@ -121,6 +121,4 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
             notifyDataSetChanged();
         }
     }
-
-
 }

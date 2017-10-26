@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,11 @@ import com.lab.tesyant.favouriteprovider.entity.Detail;
 public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapter.ViewHolder> {
 
     private Activity activity;
+    private Context context;
 
     public FavAdapter(Context context, Cursor cursor) {
         super(context, cursor);
+        this.context = context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -49,9 +52,7 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapter.ViewHolder>
         Detail detail = Detail.fromCursor(cursor);
         viewHolder.tvTitle.setText(detail.getTitle());
         viewHolder.tvRelease.setText(detail.getRelease());
-        Glide.with(activity).load("http://image.tmdb.org/t/p/w185" + detail.getCover()).asBitmap().into(viewHolder.imgCover);
-
+        Glide.with(context).load("http://image.tmdb.org/t/p/w185" + detail.getCover()).into(viewHolder.imgCover);
+        Log.e("test", detail.getCover());
     }
-
-
 }

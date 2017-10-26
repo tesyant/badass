@@ -8,6 +8,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -34,10 +35,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         getSupportActionBar().setTitle("Favourite Movie");
 
         rvMovie = (RecyclerView) findViewById(R.id.recycler_view);
-        favAdapter = new FavAdapter(this, null);
+
+        favAdapter = new FavAdapter(this, favAdapter.getCursor());
+
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rvMovie.setLayoutManager(llm);
         rvMovie.setAdapter(favAdapter);
         rvMovie.setOnClickListener(this);
-        Log.e("check", "list");
 
         getSupportLoaderManager().initLoader(LOAD_FAV_ID, null, this);
     }
@@ -50,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this, CONTENT_URI, null, null, null, null);
+        return new CursorLoader(this, DatabaseContract.CONTENT_URI, null, null, null, null);
     }
 
     @Override
@@ -76,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
         intent.setData(Uri.parse(CONTENT_URI+"/"+id));
         startActivity(intent);
+        Log.e("testing", "itemclick");
     }
 
     @Override
