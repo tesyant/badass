@@ -94,7 +94,7 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
             if (mDataSetObserver != null) {
                 mCursor.registerDataSetObserver(mDataSetObserver);
             }
-            mRowIdColumn = newCursor.getColumnIndexOrThrow("MOVIE_ID");
+            mRowIdColumn = newCursor.getColumnIndexOrThrow("movieId");
             mDataValid = true;
             notifyDataSetChanged();
         }

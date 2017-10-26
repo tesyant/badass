@@ -9,12 +9,14 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.lab.tesyant.favouriteprovider.adapter.FavAdapter;
 import com.lab.tesyant.favouriteprovider.db.DatabaseContract;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener, View.OnClickListener {
 
     private FavAdapter favAdapter;
     RecyclerView rvMovie;
@@ -32,9 +34,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         getSupportActionBar().setTitle("Favourite Movie");
 
         rvMovie = (RecyclerView) findViewById(R.id.recycler_view);
-        favAdapter = new FavAdapter(this, null, true);
+        favAdapter = new FavAdapter(this, null);
         rvMovie.setAdapter(favAdapter);
-        rvMovie.setOnClickListener(on);
+        rvMovie.setOnClickListener(this);
+        Log.e("check", "list");
 
         getSupportLoaderManager().initLoader(LOAD_FAV_ID, null, this);
     }
@@ -68,10 +71,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Cursor cursor = (Cursor) favAdapter.getItem(i);
+        Cursor cursor = (Cursor) favAdapter.getCursor();
         int id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.FavColumn.MOVIE_ID));
         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
         intent.setData(Uri.parse(CONTENT_URI+"/"+id));
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

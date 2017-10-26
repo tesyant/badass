@@ -178,7 +178,7 @@ public class FavouriteHelper {
     }
 
     public Cursor queryProvider() {
-        return database.query(DATABASE_TABLE, null, null, null, null, null, MOVIE_ID + " DESC ");
+        return database.query(DATABASE_TABLE, null, null, null, null, null, null);
     }
 
     public long insertProvider(ContentValues values) {

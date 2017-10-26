@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lab.tesyant.favouriteprovider.entity.Detail;
+
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvTitle, tvRate, tvRelease, tvOverview;

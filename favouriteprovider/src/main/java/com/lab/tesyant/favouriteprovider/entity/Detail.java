@@ -6,6 +6,13 @@ import android.os.Parcelable;
 
 import com.lab.tesyant.favouriteprovider.db.DatabaseContract;
 
+import static com.lab.tesyant.favouriteprovider.db.DatabaseContract.FavColumn.BACKDROP;
+import static com.lab.tesyant.favouriteprovider.db.DatabaseContract.FavColumn.COVER;
+import static com.lab.tesyant.favouriteprovider.db.DatabaseContract.FavColumn.MOVIE_ID;
+import static com.lab.tesyant.favouriteprovider.db.DatabaseContract.FavColumn.OVERVIEW;
+import static com.lab.tesyant.favouriteprovider.db.DatabaseContract.FavColumn.RATE;
+import static com.lab.tesyant.favouriteprovider.db.DatabaseContract.FavColumn.RELEASE;
+import static com.lab.tesyant.favouriteprovider.db.DatabaseContract.FavColumn.TITLE;
 import static com.lab.tesyant.favouriteprovider.db.DatabaseContract.getColumnString;
 
 /**
@@ -94,7 +101,7 @@ public class Detail implements Parcelable {
 
     public Detail(Cursor cursor) {
         this.id = getColumnString(cursor, DatabaseContract.FavColumn.MOVIE_ID);
-        this.title = getColumnString(cursor, DatabaseContract.FavColumn.TITLE);
+        this.title = getColumnString(cursor, TITLE);
         this.release = getColumnString(cursor, DatabaseContract.FavColumn.RELEASE);
         this.rate = getColumnString(cursor, DatabaseContract.FavColumn.RATE);
         this.overview = getColumnString(cursor, DatabaseContract.FavColumn.OVERVIEW);
@@ -123,4 +130,18 @@ public class Detail implements Parcelable {
             return new Detail[size];
         }
     };
+
+    public static Detail fromCursor(Cursor cursor) {
+        Detail detail = new Detail();
+        detail.setId(String.valueOf(cursor.getColumnIndex(MOVIE_ID)));
+        detail.setTitle(String.valueOf(cursor.getColumnIndex(TITLE)));
+        detail.setRate(String.valueOf(cursor.getColumnIndex(RATE)));
+        detail.setRelease(String.valueOf(cursor.getColumnIndex(RELEASE)));
+        detail.setOverview(String.valueOf(cursor.getColumnIndex(OVERVIEW)));
+        detail.setCover(String.valueOf(cursor.getColumnIndex(COVER)));
+        detail.setBackdrop(String.valueOf(cursor.getColumnIndex(BACKDROP)));
+        return detail;
+    }
+
+
 }

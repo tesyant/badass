@@ -1,38 +1,57 @@
 package com.lab.tesyant.favouriteprovider.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.lab.tesyant.favouriteprovider.R;
+import com.lab.tesyant.favouriteprovider.entity.Detail;
 
 /**
  * Created by tesyant on 10/26/17.
  */
 
-public class FavAdapter extends CursorAdapter {
+public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapter.ViewHolder> {
 
-    public FavAdapter(Context context, Cursor cursor, boolean autoRequery) {
-        super(context, cursor, autoRequery);
+    private Activity activity;
+
+    public FavAdapter(Context context, Cursor cursor) {
+        super(context, cursor);
     }
 
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView tvTitle, tvRelease;
+        public ImageView imgCover;
+        public ViewHolder(View view) {
+            super(view);
+            tvTitle = (TextView)view.findViewById(R.id.tv_title);
+            tvRelease = (TextView)view.findViewById(R.id.tv_release_date);
+            imgCover = (ImageView)view.findViewById(R.id.img_cover);
+        }
+    }
 
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        View view = LayoutInflater.from(context).inflate(R.layout.activity_list_movie, viewGroup, false);
-        return view;
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_movie, parent, false);
+        ViewHolder vh = new ViewHolder(itemView);
+        return vh;
     }
 
     @Override
-    public Cursor getCursor() {
+    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
+        Detail detail = Detail.fromCursor(cursor);
+        viewHolder.tvTitle.setText(detail.getTitle());
+        viewHolder.tvRelease.setText(detail.getRelease());
+        Glide.with(activity).load("http://image.tmdb.org/t/p/w185" + detail.getCover()).asBitmap().into(viewHolder.imgCover);
 
     }
 
-    @Override
-    public void bindView(View view, Context context, Cursor cursor) {
 
-    }
 }
