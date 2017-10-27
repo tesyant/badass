@@ -23,6 +23,7 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapter.ViewHolder>
 
     private Activity activity;
     private Context context;
+    CustomItemClickListener listener;
 
     public FavAdapter(Context context, Cursor cursor) {
         super(context, cursor);
