@@ -68,7 +68,17 @@
             android:readPermission="com.lab.tesyant.moviebadass.READ_DATABASE"
             android:writePermission="com.lab.tesyant.moviebadass.WRITE_DATABASE" />
 
-        <activity android:name=".FavouriteActivity"></activity>
+        <activity android:name=".FavouriteActivity" />
+
+        <receiver android:name=".Favouriteque">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/favouriteque_info" />
+        </receiver>
     </application>
 
 </manifest>
