@@ -63,7 +63,6 @@ public class NowPlayActivity extends Activity {
                     list_movie_id[i] = String.valueOf(nowplaying.getResults().get(i).getId());
                 }
 
-
                 List<Result> result = nowplaying.getResults();
                 NowPlayAdapter listAdapter = new NowPlayAdapter(result, NowPlayActivity.this, new CustomItemClickListener() {
                     @Override
@@ -78,8 +77,6 @@ public class NowPlayActivity extends Activity {
                 llm.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(llm);
                 recyclerView.setAdapter(listAdapter);
-
-
             }
 
             @Override

@@ -1,9 +1,11 @@
-package com.lab.tesyant.moviebadass;
+package com.lab.tesyant.moviebadass.settings;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.PreferenceFragmentCompat;
+
+import com.lab.tesyant.moviebadass.R;
 
 /**
  * A simple {@link Fragment} subclass.

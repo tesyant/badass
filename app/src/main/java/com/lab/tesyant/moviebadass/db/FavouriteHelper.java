@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
-import com.lab.tesyant.moviebadass.model.Results;
+import com.lab.tesyant.moviebadass.model.search.Results;
 import com.lab.tesyant.moviebadass.model.detail.Detail;
 
 import java.util.ArrayList;
