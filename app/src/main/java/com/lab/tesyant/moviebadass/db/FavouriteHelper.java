@@ -104,6 +104,24 @@ public class FavouriteHelper {
         return arrayList;
     }
 
+    public ArrayList<Results> getBanner() {
+        ArrayList<Results> arrayList = new ArrayList<>();
+        Cursor cursor = queryAllData();
+        cursor.moveToFirst();
+        Results results;
+        if (cursor.getCount() > 0) {
+            do {
+                results = new Results();
+                results.setBackdropPath(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_BACKDROP)));
+                arrayList.add(results);
+                cursor.moveToNext();
+            }
+            while (!cursor.isAfterLast());
+        }
+        cursor.close();
+        return arrayList;
+    }
+
     public long insert(Results results) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(DatabaseHelper.FIELD_MOVIE_ID, results.getId());
