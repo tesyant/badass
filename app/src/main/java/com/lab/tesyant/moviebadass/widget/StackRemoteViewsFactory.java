@@ -1,4 +1,4 @@
-package com.lab.tesyant.moviebadass;
+package com.lab.tesyant.moviebadass.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -12,6 +12,7 @@ import android.widget.RemoteViewsService;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
+import com.lab.tesyant.moviebadass.R;
 import com.lab.tesyant.moviebadass.db.FavouriteHelper;
 
 import java.util.ArrayList;
@@ -48,7 +49,6 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public void onDestroy() {
-
     }
 
     @Override
@@ -78,8 +78,10 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public RemoteViews getViewAt(int position) {
+
         RemoteViews rv = new RemoteViews(mcontext.getPackageName(), R.layout.widget_item);
         rv.setImageViewBitmap(R.id.imgView_banner, mWidgetitems.get(position));
+
         Bitmap bitmap = null;
         try {
             bitmap = Glide.with(mcontext)

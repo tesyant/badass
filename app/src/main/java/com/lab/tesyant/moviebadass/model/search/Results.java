@@ -1,5 +1,5 @@
 
-package com.lab.tesyant.moviebadass.model;
+package com.lab.tesyant.moviebadass.model.search;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

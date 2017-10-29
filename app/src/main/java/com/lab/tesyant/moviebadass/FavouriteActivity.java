@@ -10,7 +10,7 @@ import android.view.View;
 import com.lab.tesyant.moviebadass.adapter.CustomItemClickListener;
 import com.lab.tesyant.moviebadass.adapter.FavAdapter;
 import com.lab.tesyant.moviebadass.db.FavouriteHelper;
-import com.lab.tesyant.moviebadass.model.Results;
+import com.lab.tesyant.moviebadass.model.search.Results;
 
 import java.util.ArrayList;
 
@@ -49,5 +49,4 @@ public class FavouriteActivity extends AppCompatActivity {
         rvFav.setLayoutManager(llm);
         rvFav.setAdapter(adapter);
     }
-
 }

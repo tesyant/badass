@@ -20,9 +20,10 @@ import android.widget.Toast;
 
 import com.lab.tesyant.moviebadass.adapter.CustomAdapter;
 import com.lab.tesyant.moviebadass.adapter.CustomItemClickListener;
-import com.lab.tesyant.moviebadass.model.Results;
-import com.lab.tesyant.moviebadass.model.SearchMovie;
+import com.lab.tesyant.moviebadass.model.search.Results;
+import com.lab.tesyant.moviebadass.model.search.SearchMovie;
 import com.lab.tesyant.moviebadass.service.Client;
+import com.lab.tesyant.moviebadass.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;

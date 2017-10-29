@@ -1,6 +1,6 @@
 package com.lab.tesyant.moviebadass.service;
 
-import com.lab.tesyant.moviebadass.model.SearchMovie;
+import com.lab.tesyant.moviebadass.model.search.SearchMovie;
 import com.lab.tesyant.moviebadass.model.detail.Detail;
 import com.lab.tesyant.moviebadass.model.nowPlaying.NowPlaying;
 import com.lab.tesyant.moviebadass.model.upcoming.UpcomingMovie;

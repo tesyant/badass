@@ -1,4 +1,4 @@
-package com.lab.tesyant.moviebadass;
+package com.lab.tesyant.moviebadass.widget;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;
