@@ -67,4 +67,3 @@ public class FavouriteAf extends AppWidgetProvider {
         super.onReceive(context, intent);
     }
 }
-

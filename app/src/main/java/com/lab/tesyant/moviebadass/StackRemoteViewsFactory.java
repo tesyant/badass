@@ -41,7 +41,9 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public void onDataSetChanged() {
-
+        favouriteHelper = new FavouriteHelper(mcontext);
+        favouriteHelper.open();
+        favouriteHelper.getAllData();
     }
 
     @Override
@@ -77,7 +79,7 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews rv = new RemoteViews(mcontext.getPackageName(), R.layout.widget_item);
-
+        rv.setImageViewBitmap(R.id.imgView_banner, mWidgetitems.get(position));
         Bitmap bitmap = null;
         try {
             bitmap = Glide.with(mcontext)
@@ -97,5 +99,6 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
         rv.setImageViewBitmap(R.id.imgView_widgetbanner, bitmap);
         return rv;
+
     }
 }

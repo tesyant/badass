@@ -168,7 +168,6 @@ public class FavouriteHelper {
         statement.execute();
         statement.clearBindings();
 
-
         database.setTransactionSuccessful();
         database.endTransaction();
     }
