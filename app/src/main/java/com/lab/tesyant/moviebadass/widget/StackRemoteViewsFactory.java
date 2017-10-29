@@ -80,6 +80,7 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     public RemoteViews getViewAt(int position) {
 
         RemoteViews rv = new RemoteViews(mcontext.getPackageName(), R.layout.widget_item);
+        rv.setImageViewBitmap(R.id.imgView_banner, mWidgetitems.get(position));
 
         Bitmap bitmap = null;
         try {
