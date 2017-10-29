@@ -14,9 +14,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
 import com.lab.tesyant.moviebadass.R;
 import com.lab.tesyant.moviebadass.db.FavouriteHelper;
+import com.lab.tesyant.moviebadass.model.search.Results;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutionException;
 
 public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    private List<Bitmap> mWidgetitems = new ArrayList<>();
+    private ArrayList<Results> mWidgetitems = new ArrayList<>();
     private Context mcontext;
     private int mAppWidgetId;
 
@@ -44,7 +44,7 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     public void onDataSetChanged() {
         favouriteHelper = new FavouriteHelper(mcontext);
         favouriteHelper.open();
-        favouriteHelper.getAllData();
+        mWidgetitems = favouriteHelper.getAllData();
     }
 
     @Override
@@ -80,12 +80,11 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     public RemoteViews getViewAt(int position) {
 
         RemoteViews rv = new RemoteViews(mcontext.getPackageName(), R.layout.widget_item);
-        rv.setImageViewBitmap(R.id.imgView_banner, mWidgetitems.get(position));
 
         Bitmap bitmap = null;
         try {
             bitmap = Glide.with(mcontext)
-                    .load("http://image.tmdb.org/t/p/w185" + favouriteHelper.getBanner())
+                    .load("http://image.tmdb.org/t/p/w185" + favouriteHelper.getBanner().get(position).getPosterPath())
                     .asBitmap()
                     .error(new ColorDrawable(mcontext.getResources().getColor(R.color.colorPrimary)))
                     .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
@@ -93,7 +92,6 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
         catch (InterruptedException | ExecutionException e) {
             Log.d("Widget Load Error", "error");
         }
-
         Bundle extras = new Bundle();
         extras.putInt(FavouriteAf.EXTRA_ITEM, position);
         Intent fillIntent = new Intent();

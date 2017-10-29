@@ -112,7 +112,7 @@ public class FavouriteHelper {
         if (cursor.getCount() > 0) {
             do {
                 results = new Results();
-                results.setBackdropPath(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_BACKDROP)));
+                results.setPosterPath(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_COVER)));
                 arrayList.add(results);
                 cursor.moveToNext();
             }
