@@ -95,7 +95,7 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
         Intent fillIntent = new Intent();
         fillIntent.putExtras(extras);
 
-        rv.setImageViewBitmap(R.id.imgView_widget, bitmap);
+        rv.setImageViewBitmap(R.id.imgView_widgetbanner, bitmap);
         return rv;
     }
 }
