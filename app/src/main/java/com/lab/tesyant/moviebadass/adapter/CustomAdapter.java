@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.lab.tesyant.moviebadass.R;
-import com.lab.tesyant.moviebadass.model.Results;
+import com.lab.tesyant.moviebadass.model.search.Results;
 
 import java.util.List;
 

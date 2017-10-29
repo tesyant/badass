@@ -1,4 +1,4 @@
-package com.lab.tesyant.moviebadass;
+package com.lab.tesyant.moviebadass.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+
+import com.lab.tesyant.moviebadass.R;
 
 /**
  * Implementation of App Widget functionality.

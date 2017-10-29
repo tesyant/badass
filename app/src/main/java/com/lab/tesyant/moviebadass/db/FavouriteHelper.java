@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
-import com.lab.tesyant.moviebadass.model.Results;
+import com.lab.tesyant.moviebadass.model.search.Results;
 import com.lab.tesyant.moviebadass.model.detail.Detail;
 
 import java.util.ArrayList;
@@ -112,7 +112,7 @@ public class FavouriteHelper {
         if (cursor.getCount() > 0) {
             do {
                 results = new Results();
-                results.setBackdropPath(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_BACKDROP)));
+                results.setPosterPath(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_COVER)));
                 arrayList.add(results);
                 cursor.moveToNext();
             }

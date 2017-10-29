@@ -1,4 +1,4 @@
-package com.lab.tesyant.moviebadass;
+package com.lab.tesyant.moviebadass.settings;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
